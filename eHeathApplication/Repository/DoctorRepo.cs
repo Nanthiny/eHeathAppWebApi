@@ -36,6 +36,12 @@ namespace eHeathApplication.Repository
             return doctorlist;
         }
 
+        public async Task<IEnumerable<OnlineAppointment>> getAppointments(int docid)
+        {
+            var aptlist=await _db.OnlineAppointments.Where(d => d.DoctorModelID == docid).ToListAsync();
+            return aptlist;
+        }
+
         public async Task<DoctorModel> getDoctorbyid(int id)
         {
          DoctorModel doct=  await _db.DoctorModels.Include(s => s.Schedules).FirstOrDefaultAsync(d => d.DoctorModelID == id);

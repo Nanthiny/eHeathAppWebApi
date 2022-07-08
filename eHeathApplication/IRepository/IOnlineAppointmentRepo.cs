@@ -10,5 +10,6 @@ namespace eHeathApplication.IRepository
     {
         public Task<OnlineAppointment> addAppointment(OnlineAppointment apt);
         public Task<OnlineAppointment> changeAppointment(OnlineAppointment apt);
+        public Task<OnlineAppointment> getAppointment(int id);
     }
 }

@@ -45,6 +45,7 @@ namespace eHeathApplication
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IDoctorRepository, DoctorRepo>();
             services.AddScoped<IPatientRepo,PatientRepo>();
+            services.AddScoped<IOnlineAppointmentRepo, OnlineAppointmentRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EhealthBackend", Version = "v1" });

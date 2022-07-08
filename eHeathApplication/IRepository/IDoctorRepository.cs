@@ -11,7 +11,7 @@ namespace eHeathApplication.IRepository
         public Task<DoctorModel> AddDoctorToDb(DoctorModel model);
         public Task<IEnumerable<DoctorModel>> getAllDoctors();
         public Task<Schedule> addSchedule(Schedule sch);
-
+        public Task<IEnumerable<OnlineAppointment>> getAppointments(int docid);
         public Task<DoctorModel> getDoctorbyid(int id);
     }
 }

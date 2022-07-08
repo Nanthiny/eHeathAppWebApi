@@ -46,6 +46,11 @@ namespace eHeathApplication.Controllers.Admin
             var res = await _doctorRepo.getDoctorbyid(id);
             return Ok(res);
         }
-
+        [HttpGet("viewappointments/{docid}")]
+        public async Task<ActionResult<IEnumerable<OnlineAppointment>>> getAppointments([FromRoute] int docid)
+        {
+            var res = await _doctorRepo.getAppointments(docid);
+            return Ok(res);
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace eHeathApplication.Repository
 {
+
     public class OnlineAppointmentRepo : IOnlineAppointmentRepo
     {
         private readonly ApplicationDbContext _db;
@@ -25,6 +26,12 @@ namespace eHeathApplication.Repository
         public Task<OnlineAppointment> changeAppointment(OnlineAppointment apt)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<OnlineAppointment> getAppointment(int id)
+        {
+           OnlineAppointment apt= await _db.OnlineAppointments.FindAsync(id);
+            return apt;
         }
     }
 }

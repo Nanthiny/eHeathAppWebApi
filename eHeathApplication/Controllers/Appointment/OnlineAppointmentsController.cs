@@ -23,8 +23,8 @@ namespace eHeathApplication.Controllers.Appointment
         {
             _onlineapt = onlineapt;
         }
-        [HttpPost]
-        public async Task<ActionResult<OnlineAppointment>> AddOnlineAppointment(OnlineAppointment onlineAppointment)
+        [HttpPost("addappointment")]
+        public async Task<ActionResult<OnlineAppointment>> AddOnlineAppointment([FromBody] OnlineAppointment onlineAppointment)
         {
            var apt= await _onlineapt.addAppointment(onlineAppointment);
           
@@ -37,11 +37,10 @@ namespace eHeathApplication.Controllers.Appointment
 
         // GET: api/OnlineAppointments/5
 
-        /*
         [HttpGet("{id}")]
         public async Task<ActionResult<OnlineAppointment>> GetOnlineAppointment(int id)
         {
-            var onlineAppointment = await _context.OnlineAppointments.FindAsync(id);
+            var onlineAppointment = await _onlineapt.getAppointment(id);
 
             if (onlineAppointment == null)
             {
@@ -50,6 +49,7 @@ namespace eHeathApplication.Controllers.Appointment
 
             return onlineAppointment;
         }
+        /*
 
         // PUT: api/OnlineAppointments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
