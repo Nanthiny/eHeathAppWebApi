@@ -24,5 +24,6 @@ namespace eHeathApplication.Data
         public DbSet<DocSchedule> DoctorSchedules { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
         public DbSet<OnlineAppointment> OnlineAppointments { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
