@@ -1,4 +1,5 @@
 ﻿using eHeathApplication.Data;
+using eHeathApplication.Helpers;
 using eHeathApplication.IRepository;
 using eHeathApplication.Model;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,7 @@ namespace eHeathApplication.Repository
         public async Task<SigninResponse> AuthenticateUser(string email, string password)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == email);
+            AuthHelper helper = new AuthHelper();
             if (user == null)
             {
                 return new SigninResponse {
@@ -63,7 +65,7 @@ namespace eHeathApplication.Repository
                     Message="User not exist"
                 };
             }
-            if (!MatchPassword(password, user.Password, user.PasswordKey))
+            if (!helper.MatchPassword(password, user.Password, user.PasswordKey))
             {
                 return new SigninResponse
                 {
@@ -72,17 +74,8 @@ namespace eHeathApplication.Repository
                 };
             }
            
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-          
-            var tokeOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5001",
-                audience: "https://localhost:5001",
-                claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(5),
-                signingCredentials: signinCredentials
-            );
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+           
+            string tokenString = helper.Generatetoken();
             return new SigninResponse
             {
                 Success = true,
@@ -102,23 +95,6 @@ namespace eHeathApplication.Repository
         {
             throw new NotImplementedException();
         }
-        public bool MatchPassword(string password1, byte[] password2, byte[] passwordKey)
-        {
-            using (var hmac = new HMACSHA512(passwordKey))
-            {
-
-                var passwordhash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password1));
-                for (int i = 0; i < passwordhash.Length; i++)
-                {
-                    if (passwordhash[i] != password2[i])
-                    {
-                        return false;
-                    }
-
-                }
-                return true;
-
-            }
-        }
+      
     }
 }

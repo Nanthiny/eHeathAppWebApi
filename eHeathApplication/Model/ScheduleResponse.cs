@@ -5,13 +5,9 @@ using System.Threading.Tasks;
 
 namespace eHeathApplication.Model
 {
-    public class SigninResponse
+    public class ScheduleResponse
     {
         public bool Success { get; set; }
-        public int? userId { get; set; }
-        public string Firstname { get; set; }
         public string Message { get; set; }
-        public string token { get; set; }
-        public string Role { get; set; }
     }
 }

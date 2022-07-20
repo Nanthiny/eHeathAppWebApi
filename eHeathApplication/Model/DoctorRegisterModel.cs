@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace eHeathApplication.Model
 {
-    public class DoctorModel
+    public class DoctorRegisterModel
     {
-        [Key]
-        public int DoctorModelID { get; set; }
         public string DoctorCode { get; set; }
         public string DoctorName { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] PasswordKey { get; set; }
+        public string Password { get; set; }
         public string Address { get; set; }
         public int Age { get; set; }
         public string Qualification { get; set; }
@@ -23,6 +19,5 @@ namespace eHeathApplication.Model
         public virtual Department Department { get; set; }
         public IEnumerable<Schedule> Schedules { get; set; }
         public IEnumerable<OnlineAppointment> Appointments { get; set; }
-
     }
 }

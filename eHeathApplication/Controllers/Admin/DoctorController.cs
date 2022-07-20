@@ -23,9 +23,15 @@ namespace eHeathApplication.Controllers.Admin
             _doctorRepo = doctorRepo;
         }
         [HttpPost("adddoctor")]
-        public async Task<IActionResult> addDoctor([FromBody] DoctorModel doctor)
+        public async Task<IActionResult> addDoctor([FromBody] DoctorRegisterModel doctor)
         {
-           var res=await _doctorRepo.AddDoctorToDb(doctor);
+            var res = await _doctorRepo.AddDoctorToDb(doctor);
+            return Ok(res);
+        }
+        [HttpPost("logindoctor")]
+        public async Task<IActionResult> Authdoctor([FromBody] Signinrequest request)
+        {
+            var res = await _doctorRepo.AuthenticateDoctor(request.docCode, request.password);
             return Ok(res);
         }
         [HttpPost("addschedule")]
@@ -52,5 +58,12 @@ namespace eHeathApplication.Controllers.Admin
             var res = await _doctorRepo.getAppointments(docid);
             return Ok(res);
         }
+        [HttpGet("getschedules/{id}")]
+        public async Task<ActionResult<IEnumerable<Schedule>>> getSchedules([FromRoute] int id)
+        {
+            var res = await _doctorRepo.getSchedules(id);
+            return Ok(res);
+        }
     }
+    
 }

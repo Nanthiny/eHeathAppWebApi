@@ -26,7 +26,7 @@ namespace eHeathApplication.Controllers
             SigninResponse obj = await _repo.AuthenticateUser(loginmodel.Email, loginmodel.Password);
            
             return Ok(obj);
-        }
+         }
         [HttpPost("register")]
         public async Task<IActionResult> SignUpUser([FromBody] RegisterModel model)
         {
