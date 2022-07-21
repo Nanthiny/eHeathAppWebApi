@@ -13,15 +13,19 @@ namespace eHeathApplication.Helpers
 {
     public class AuthHelper
     {
-        public String Generatetoken()
+        public String Generatetoken(string name,string role)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, name),
+        new Claim(ClaimTypes.Role, role)
+    };
             var tokeOptions = new JwtSecurityToken(
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:5001",
-                claims: new List<Claim>(),
+                claims: claims,
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: signinCredentials
             );

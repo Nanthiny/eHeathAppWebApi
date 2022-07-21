@@ -73,9 +73,9 @@ namespace eHeathApplication.Repository
                     Message = "User password not match"
                 };
             }
+            string role = "Patient";
            
-           
-            string tokenString = helper.Generatetoken();
+            string tokenString = helper.Generatetoken(user.Firstname,role);
             return new SigninResponse
             {
                 Success = true,

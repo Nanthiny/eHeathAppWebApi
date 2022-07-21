@@ -88,7 +88,7 @@ namespace eHeathApplication.Repository
             }
 
            
-            string tokenString = helper.Generatetoken();
+            string tokenString = helper.Generatetoken(doctor.DoctorName,doctor.Role);
             return new SigninResponse
             {
                 Success = true,
@@ -121,6 +121,11 @@ namespace eHeathApplication.Repository
         public async Task<IEnumerable<Schedule>> getSchedules(int id)
         {
             var res = await _db.Schedule.Where(d => d.DoctorID == id).ToListAsync();
+            return res;
+        }
+        public async Task<Schedule> getSchedulebyid(int id)
+        {
+            var res = await _db.Schedule.FindAsync(id);
             return res;
         }
     }

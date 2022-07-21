@@ -2,6 +2,7 @@
 using eHeathApplication.IRepository;
 using eHeathApplication.Model;
 using eHeathApplication.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,7 @@ namespace eHeathApplication.Controllers.Admin
             return Ok(res);
         }
         [HttpPost("addschedule")]
+        [Authorize]
         public async Task<IActionResult> addSchedule([FromBody] Schedule schedule)
         {
             var res = await _doctorRepo.addSchedule(schedule);
@@ -53,15 +55,24 @@ namespace eHeathApplication.Controllers.Admin
             return Ok(res);
         }
         [HttpGet("viewappointments/{docid}")]
+        [Authorize(Roles ="Doctor")]
         public async Task<ActionResult<IEnumerable<OnlineAppointment>>> getAppointments([FromRoute] int docid)
         {
             var res = await _doctorRepo.getAppointments(docid);
             return Ok(res);
         }
         [HttpGet("getschedules/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Schedule>>> getSchedules([FromRoute] int id)
         {
             var res = await _doctorRepo.getSchedules(id);
+            return Ok(res);
+        }
+        [HttpGet("getschedule/{id}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Schedule>>> getSchedulebyid([FromRoute] int id)
+        {
+            var res = await _doctorRepo.getSchedulebyid(id);
             return Ok(res);
         }
     }
